@@ -205,7 +205,8 @@ For example, it has the following differences from
 Although placeholders are a useful feature, it is very difficult to implement it
 while maintaining correct type inference.
 
-If you can solve this issue, please make a [pull request]().
+If you can solve this issue, please make a
+[pull request](https://github.com/TomokiMiyauci/curry/pulls).
 
 ## :green_heart: Supports
 
