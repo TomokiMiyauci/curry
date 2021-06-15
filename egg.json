@@ -1,0 +1,14 @@
+{
+  "$schema": "https://x.nest.land/eggs@0.3.6/src/schema.json",
+  "name": "curry",
+  "entry": "mod.ts",
+  "description": "TypeScript-first curry function without upcast",
+  "homepage": "https://github.com/TomokiMiyauci/curry#readme",
+  "version": "0.0.0",
+  "files": ["README.md", "LICENSE", "*.ts"],
+  "ignore": [".git"],
+  "checkFormat": false,
+  "checkTests": false,
+  "checkInstallation": false,
+  "check": true
+}
