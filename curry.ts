@@ -103,7 +103,7 @@ type Curried<Args extends AnyArray, ReturnValue> = Args extends [] ? ReturnValue
  * @returns The new curried function
  *
  * @remarks
- * Maximum number of arity is `16`. Beyond that, the type system will breaks.
+ * Maximum number of arity is `19`. Beyond that, the type system will breaks.
  *
  * @example
  * ```ts
@@ -127,3 +127,32 @@ const curry = <T extends unknown[], R>(
 
 export { curry };
 export type { Pop, Shift, UnionFactorial };
+
+const replace = (from: string, to: string, val: string) =>
+  val.replace(from, to);
+const curriedReplace = curry(replace);
+curriedReplace("hello"); // (to: string, val: string): string
+
+curriedReplace("hello")("hi"); // (val: string): string
+curriedReplace("hello", "hi"); // (val: string): string
+
+curriedReplace("hello", "hi", "hello world"); // string
+curriedReplace("hello")("hi")("hello world"); // string
+curriedReplace("hello", "hi")("hello world"); // string
+curriedReplace("hello")("hi", "hello world"); // string
+
+const aaa: {
+  (a: number): number;
+  (b: string, c: number): string;
+} = (a: any) => 1 as any;
+
+const b = curry(aaa);
+b("");
+
+function len(s: string): number;
+function len(arr: any[]): number;
+function len(x: any) {
+  return x.length;
+}
+
+const ccc = curry(len);
