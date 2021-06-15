@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="logo image" src="https://res.cloudinary.com/dz3vsv9pg/image/upload/c_scale,w_1280/v1622422123/projects/curry/logo.png" />
+  <img alt="logo image" src="https://res.cloudinary.com/dz3vsv9pg/image/upload/v1623678089/projects/curry/logo.png" />
   <h1 align="center">curry</h1>
 </p>
 
@@ -30,6 +30,9 @@ TypeScript-first curry function without upcast
 
 </div>
 
+A curly function with a strict type definition. There is no upcast to `any`
+types, respecting the typedef of the callback function.
+
 ---
 
 ## :sparkles: Features
@@ -49,15 +52,34 @@ Node.js: `curry-rice` ([npm](https://www.npmjs.com/package/curry-rice))
 
 The origin of the word `curry-rice` is Rice and curry 🍛.
 
-## :zap: Example
+## :zap: Overview
+
+### ReturnValue
 
 ```ts
-const replace = (from: string, to: string, val: string) => val.replace(from, to)
- const curriedReplace = curry(replace)
- const curriedReplace('hello', 'hi', 'hello world') // 'hi world'
- const curriedReplace('hello')('hi', 'hello world') // 'hi world'
- const curriedReplace('hello','hi')('hello world') // 'hi world'
- const curriedReplace('hello')('hi')('hello world') // 'hi world'
+const replace = (from: string, to: string, val: string) =>
+  val.replace(from, to);
+const curriedReplace = curry(replace);
+
+curriedReplace("hello", "hi", "hello world"); // 'hi world'
+curriedReplace("hello")("hi", "hello world"); // 'hi world'
+curriedReplace("hello", "hi")("hello world"); // 'hi world'
+curriedReplace("hello")("hi")("hello world"); // 'hi world'
+curriedReplace("hello", "hi", "hello world"); // 'hi world'
+```
+
+### ReturnType
+
+```ts
+curriedReplace("hello"); // (to: string, val: string): string
+
+curriedReplace("hello")("hi"); // (val: string): string
+curriedReplace("hello", "hi"); // (val: string): string
+
+curriedReplace("hello", "hi", "hello world"); // string
+curriedReplace("hello")("hi")("hello world"); // string
+curriedReplace("hello", "hi")("hello world"); // string
+curriedReplace("hello")("hi", "hello world"); // string
 ```
 
 ## :dizzy: Usage
@@ -121,6 +143,69 @@ The module that bundles the dependencies is obtained from
   curry(AnyFn)
 </script>
 ```
+
+## API
+
+### Type definition
+
+#### curry
+
+```ts
+declare const curry: <T extends unknown[], R>(
+  fn: (...args: T) => R,
+) => Curried<T, R>;
+```
+
+| Parameter | Description  |
+| --------- | ------------ |
+| `fn`      | Any function |
+
+`=>` The new curried function
+
+### Example
+
+```ts
+const nullary = () => true;
+curry(nullary); // ()  => boolean
+const unary = (val: number) => val++;
+curry(unary); // (val: number)  => number
+const binaryFn = (a: number, b: number) => a + b;
+curry(binaryFn); // (a: number, b: number)  => number || (a: number) => (b:number) => number
+```
+
+### Restriction
+
+This package is focused on getting correct type inference. Hence, there are the
+following limitations:
+
+- Maximum number of [arity](https://en.wikipedia.org/wiki/Arity) is `19`.
+
+Beyond that, the type system will breaks.
+
+- [`Overloads function`](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads)
+  cannot be correctly type inferred.
+
+Overloads function is something like this:
+
+```ts
+function len(s: string): number;
+function len(arr: any[]): number;
+function len(x: any) {
+  return x.length;
+}
+```
+
+For example, it has the following differences from
+[`lodash.curry`](https://lodash.com/docs/4.17.15#curry).
+
+- `lodash.curry` has a placeholder feature, which this package does not have.
+- The argument of the curried function in `lodash.curry` is `any` types, but in
+  this package, the type of the original argument is inferred.
+
+Although placeholders are a useful feature, it is very difficult to implement it
+while maintaining correct type inference.
+
+If you can solve this issue, please make a [pull request]().
 
 ## :green_heart: Supports
 
