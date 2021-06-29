@@ -16,7 +16,6 @@ TypeScript-first curry function without upcast
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/curry/mod.ts)
 [![deno version](https://img.shields.io/badge/deno-^1.6.0-lightgrey?logo=deno)](https://github.com/denoland/deno)
 ![node support version](https://img.shields.io/badge/node-%5E6.17.0-yellow)
-![npm download](https://img.shields.io/npm/dw/curry-rice?color=blue)
 
 ![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/TomokiMiyauci/curry)
 [![dependencies Status](https://status.david-dm.org/gh/TomokiMiyauci/curry.svg)](https://david-dm.org/TomokiMiyauci/curry)
@@ -26,6 +25,7 @@ TypeScript-first curry function without upcast
 ![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)
 ![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat)
 ![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)
+[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B26231%2Fgithub.com%2FTomokiMiyauci%2Fcurry.svg?type=small)](https://app.fossa.com/projects/custom%2B26231%2Fgithub.com%2FTomokiMiyauci%2Fcurry?ref=badge_small)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 </div>
@@ -253,3 +253,5 @@ Give a ⭐️ if this project helped you!
 Copyright © 2021-present [TomokiMiyauci](https://github.com/TomokiMiyauci).
 
 Released under the [MIT](./LICENSE) license
+
+[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B26231%2Fgithub.com%2FTomokiMiyauci%2Fcurry.svg?type=large)](https://app.fossa.com/projects/custom%2B26231%2Fgithub.com%2FTomokiMiyauci%2Fcurry?ref=badge_large)
