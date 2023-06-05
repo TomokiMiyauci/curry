@@ -7,7 +7,7 @@
 [![GitHub](https://img.shields.io/github/license/TomokiMiyauci/curry)](https://github.com/TomokiMiyauci/curry/blob/main/LICENSE)
 
 [![test](https://github.com/TomokiMiyauci/curry/actions/workflows/test.yaml/badge.svg)](https://github.com/TomokiMiyauci/curry/actions/workflows/test.yaml)
-[![NPM](https://nodei.co/npm/curry.png?mini=true)](https://nodei.co/npm/curry/)
+[![NPM](https://nodei.co/npm/@miyauci/curry.png?mini=true)](https://nodei.co/npm/@miyauci/curry/)
 
 Currying and partial application utilities.
 
