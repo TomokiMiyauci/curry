@@ -1,3 +1,10 @@
+# [1.1.0-beta.3](https://github.com/TomokiMiyauci/curry/compare/1.1.0-beta.2...1.1.0-beta.3) (2023-06-05)
+
+
+### Features
+
+* **partial:** rename partial functions ([ac74154](https://github.com/TomokiMiyauci/curry/commit/ac7415418a28b8c70a7c80b1bb44c00f613e1fa2))
+
 # [1.1.0-beta.2](https://github.com/TomokiMiyauci/curry/compare/1.1.0-beta.1...1.1.0-beta.2) (2023-06-05)
 
 
