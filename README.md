@@ -1,255 +1,105 @@
-<p align="center">
-  <img alt="logo image" src="https://res.cloudinary.com/dz3vsv9pg/image/upload/v1623678089/projects/curry/logo.png" />
-  <h1 align="center">curry</h1>
-</p>
+# curry
 
-<p align="center">
-TypeScript-first curry function without upcast
-</p>
-
-<div align="center">
-
-[![test](https://github.com/TomokiMiyauci/curry/actions/workflows/test.yml/badge.svg)](https://github.com/TomokiMiyauci/curry/actions/workflows/test.yml)
-[![GitHub release](https://img.shields.io/github/release/TomokiMiyauci/curry.svg)](https://github.com/TomokiMiyauci/curry/releases)
-[![deno land](http://img.shields.io/badge/available%20on-deno.land/x-lightgrey.svg?logo=deno&labelColor=black)](https://deno.land/x/curry)
-[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/curry)
+[![deno land](http://img.shields.io/badge/available%20on-deno.land/x-lightgrey.svg?logo=deno)](https://deno.land/x/curry)
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/curry/mod.ts)
-[![deno version](https://img.shields.io/badge/deno-^1.6.0-lightgrey?logo=deno)](https://github.com/denoland/deno)
-![node support version](https://img.shields.io/badge/node-%5E6.17.0-yellow)
-![npm download](https://img.shields.io/npm/dw/curry-rice?color=blue)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/TomokiMiyauci/curry)](https://github.com/TomokiMiyauci/curry/releases)
+[![codecov](https://codecov.io/github/TomokiMiyauci/curry/branch/main/graph/badge.svg)](https://codecov.io/gh/TomokiMiyauci/curry)
+[![GitHub](https://img.shields.io/github/license/TomokiMiyauci/curry)](https://github.com/TomokiMiyauci/curry/blob/main/LICENSE)
 
-![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/TomokiMiyauci/curry)
-[![dependencies Status](https://status.david-dm.org/gh/TomokiMiyauci/curry.svg)](https://david-dm.org/TomokiMiyauci/curry)
-[![codecov](https://codecov.io/gh/TomokiMiyauci/curry/branch/main/graph/badge.svg?token=SPAi5Pv2wd)](https://codecov.io/gh/TomokiMiyauci/curry)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/f43b1c317e11445399d85ce6efc06504)](https://www.codacy.com/gh/TomokiMiyauci/curry/dashboard?utm_source=github.com&utm_medium=referral&utm_content=TomokiMiyauci/curry&utm_campaign=Badge_Grade)
-![npm type definitions](https://img.shields.io/npm/types/curry-rice)
-![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)
-![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat)
-![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![test](https://github.com/TomokiMiyauci/curry/actions/workflows/test.yaml/badge.svg)](https://github.com/TomokiMiyauci/curry/actions/workflows/test.yaml)
+[![NPM](https://nodei.co/npm/@miyauci/curry.png?mini=true)](https://nodei.co/npm/@miyauci/curry/)
 
-</div>
+Currying and partial application utilities.
 
-A curly function with a strict type definition. There is no upcast to `any`
-types, respecting the typedef of the callback function.
+## Currying
 
----
+Provides features related to currying.
 
-## :sparkles: Features
+> currying is the technique of translating the evaluation of a function that
+> takes multiple arguments into evaluating a sequence of functions, each with a
+> single argument.
 
-- :zap: Multi runtime support (`Deno`, `Node.js` and Browsers)
-- :books: Pure TypeScript and provides type definition
-- :earth_americas: Universal module, providing `ES modules` and `Commonjs`
-- :package: Optimized, super slim size
-- :page_facing_up: TSDoc-style comments
+### curry
 
-### Package name
+[![curry:curry](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+curry+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+curry+%7D%5D#sharing)
 
-Deno: `curry` ([deno.land](https://deno.land/x/curry),
-[nest.land](https://nest.land/package/curry))
-
-Node.js: `curry-rice` ([npm](https://www.npmjs.com/package/curry-rice))
-
-The origin of the word `curry-rice` is Rice and curry 🍛.
-
-## :zap: Overview
-
-### ReturnValue
+`curry` returns curried function.
 
 ```ts
-const replace = (from: string, to: string, val: string) =>
-  val.replace(from, to);
-const curriedReplace = curry(replace);
+import { curry } from "https://deno.land/x/curry@$VERSION/mod.ts";
 
-curriedReplace("hello", "hi", "hello world"); // 'hi world'
-curriedReplace("hello")("hi", "hello world"); // 'hi world'
-curriedReplace("hello", "hi")("hello world"); // 'hi world'
-curriedReplace("hello")("hi")("hello world"); // 'hi world'
-curriedReplace("hello", "hi", "hello world"); // 'hi world'
+declare const fn: (a: string, b: number, c: boolean) => void;
+const curriedFn = curry(fn);
+
+curriedFn("")(0)(false);
+curriedFn("", 0)(false);
+curriedFn("", 0, false);
 ```
 
-### ReturnType
+## Partial application
+
+Partial application refers to the process of fixing a number of arguments to a
+function, producing another function of smaller arity.
+
+It has the following characteristics:
+
+- The `length` property is not strict.
+- The `name` property is `bound`.
+
+### papplyLeft
+
+[![curry:papplyLeft](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+papplyLeft+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+papplyLeft+%7D%5D#sharing)
+
+Create a bound function with arguments fixed from the left.
 
 ```ts
-curriedReplace("hello"); // (to: string, val: string): string
+import { papplyLeft } from "https://deno.land/x/curry@$VERSION/mod.ts";
 
-curriedReplace("hello")("hi"); // (val: string): string
-curriedReplace("hello", "hi"); // (val: string): string
+declare const fn: (a: string, b: number, c: boolean) => void;
 
-curriedReplace("hello", "hi", "hello world"); // string
-curriedReplace("hello")("hi")("hello world"); // string
-curriedReplace("hello", "hi")("hello world"); // string
-curriedReplace("hello")("hi", "hello world"); // string
+const ternary = papplyLeft(fn);
+const binary = papplyLeft(fn, "");
+const unary = papplyLeft(fn, "", 0);
+const nullary = papplyLeft(fn, "", 0, false);
 ```
 
-## :dizzy: Usage
+### papplyRight
 
-`curry` provides multi platform modules.
+[![curry:partialRight](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+partialRight+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+partialRight+%7D%5D#sharing)
 
-### 🦕 Deno
-
-#### [deno.land](https://deno.land/x/curry)
+Create a bound function with arguments fixed from the right
 
 ```ts
-import { curry } from "https://deno.land/x/curry/mod.ts";
+import { papplyRight } from "https://deno.land/x/curry@$VERSION/mod.ts";
 
-curry(AnyFn);
+declare const fn: (a: string, b: number, c: boolean) => void;
+
+const binary = papplyRight(fn, false);
+const unary = papplyRight(fn, false, 0);
+const nullary = papplyRight(fn, false, 0, "");
 ```
 
-#### [nest.land](https://nest.land/package/curry)
+### papplyRest
+
+[![curry:papplyRest](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+papplyRest+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+papplyRest+%7D%5D#sharing)
+
+Create a bound function with fixed arguments except the first one.
 
 ```ts
-import { curry } from "https://x.nest.land/curry/mod.ts";
+import { papplyRest } from "https://deno.land/x/curry@$VERSION/mod.ts";
 
-curry(AnyFn);
-```
+declare const fn: (a: string, b: number, c: boolean) => void;
 
-### :package: Node.js
-
-> NPM package name is [`curry-rice`](https://www.npmjs.com/package/curry-rice) .
-
-#### Install
-
-```bash
-npm i curry-rice
-or
-yarn add curry-rice
-```
-
-#### ES modules
-
-```ts
-import { curry } from "curry-rice";
-
-curry(AnyFn);
-```
-
-#### Commonjs
-
-```ts
-const { curry } = require("curry-rice");
-
-curry(AnyFn);
-```
-
-### :globe_with_meridians: Browser
-
-The module that bundles the dependencies is obtained from
-[skypack](https://www.skypack.dev/view/curry-rice).
-
-```html
-<script type="module">
-  import { curry } from "https://cdn.skypack.dev/curry-rice";
-  curry(AnyFn)
-</script>
+const binary = papplyRest(fn, 0);
+const unary = papplyRest(fn, 0, false);
 ```
 
 ## API
 
-### Type definition
+See [deno doc](https://deno.land/x/curry/mod.ts) for all APIs.
 
-#### curry
+## License
 
-```ts
-declare const curry: <T extends unknown[], R>(
-  fn: (...args: T) => R,
-) => Curried<T, R>;
-```
-
-| Parameter | Description  |
-| --------- | ------------ |
-| `fn`      | Any function |
-
-`=>` The new curried function
-
-### Example
-
-```ts
-const nullary = () => true;
-curry(nullary); // ()  => boolean
-const unary = (val: number) => val++;
-curry(unary); // (val: number)  => number
-const binaryFn = (a: number, b: number) => a + b;
-curry(binaryFn); // (a: number, b: number)  => number || (a: number) => (b:number) => number
-```
-
-### Restriction
-
-This package is focused on getting correct type inference. Hence, there are the
-following limitations:
-
-- Maximum number of [arity](https://en.wikipedia.org/wiki/Arity) is `19`.
-
-Beyond that, the type system will breaks.
-
-- [`Overloads function`](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads)
-  cannot be correctly type inferred.
-
-Overloads function is something like this:
-
-```ts
-function len(s: string): number;
-function len(arr: any[]): number;
-function len(x: any) {
-  return x.length;
-}
-```
-
-For example, it has the following differences from
-[`lodash.curry`](https://lodash.com/docs/4.17.15#curry).
-
-- `lodash.curry` has a placeholder feature, which this package does not have.
-- The argument of the curried function in `lodash.curry` is `any` types, but in
-  this package, the type of the original argument is inferred.
-
-Although placeholders are a useful feature, it is very difficult to implement it
-while maintaining correct type inference.
-
-If you can solve this issue, please make a
-[pull request](https://github.com/TomokiMiyauci/curry/pulls).
-
-## :green_heart: Supports
-
-> ie is no longer supported to reduce bundle size.
-
-The TypeScript version must be `4.1.0` or higher.
-
-This project provides `ES modules` and `Commonjs`.
-
-If you have an opinion about what to support, you can open an
-[issue](https://github.com/TomokiMiyauci/curry/issues) to discuss it.
-
-The `browserslist` has the following settings.
-
-```text
-defaults
-last 8 version
-not IE <= 11
-not ie_mob <= 11
-node 6
-```
-
-| <img width="30px" height="30px" alt="Deno" src="https://res.cloudinary.com/dz3vsv9pg/image/upload/v1620998361/logos/deno.svg"></br>Deno | <img width="24px" height="24px" alt="Node.js" src="https://res.cloudinary.com/dz3vsv9pg/image/upload/v1620998361/logos/nodejs.svg"></br>Node.js | <img width="24px" height="24px" alt="IE / Edge" src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png"></br>Edge | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" /></br>Firefox | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" /></br>Chrome | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" /></br>Safari | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png" alt="iOS Safari" width="24px" height="24px" /></br>iOS Safari | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/samsung-internet/samsung-internet_48x48.png" alt="Samsung" width="24px" height="24px" /></br>Samsung | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" /></br>Opera |
-| --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `^1.6.0`                                                                                                                                | `^6.17.0`                                                                                                                                       | `^83`                                                                                                                                                | `^78`                                                                                                                                                         | `^83`                                                                                                                                                     | `^11`                                                                                                                                                     | `^12.0`                                                                                                                                                                   | `^7.2`                                                                                                                                                                          | `^68`                                                                                                                                                 |
-
-## :handshake: Contributing
-
-Contributions, issues and feature requests are welcome!<br />Feel free to check
-[issues](https://github.com/TomokiMiyauci/curry/issues).
-
-[Contributing guide](./.github/CONTRIBUTING.md)
-
-## :seedling: Show your support
-
-Give a ⭐️ if this project helped you!
-
-<a href="https://www.patreon.com/tomoki_miyauci">
-  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
-</a>
-
-## :bulb: License
-
-Copyright © 2021-present [TomokiMiyauci](https://github.com/TomokiMiyauci).
+Copyright © 2023-present [Tomoki Miyauchi](https://github.com/TomokiMiyauci).
 
 Released under the [MIT](./LICENSE) license

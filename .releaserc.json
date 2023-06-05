@@ -1,28 +1,25 @@
 {
-  "branches": ["main", { "name": "beta", "prerelease": true }],
+  "branches": [
+    "main",
+    {
+      "name": "beta",
+      "prerelease": true
+    }
+  ],
   "plugins": [
-    [
-      "semantic-release-gitmoji",
-      {
-        "releaseRules": {
-          "major": [":boom:"],
-          "premajor": [":boom:"],
-          "minor": [":sparkles:"],
-          "preminor": [":sparkles:"],
-          "patch": [":bug:", ":ambulance:", ":lock:"],
-          "prepatch": [":bug:", ":ambulance:", ":lock:"]
-        }
-      }
-    ],
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    "@semantic-release/npm",
     "@semantic-release/github",
     [
       "@semantic-release/git",
       {
-        "assets": ["CHANGELOG.md", "package.json", "LICENSE"],
-        "message": ":bookmark:  ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        "assets": [
+          "CHANGELOG.md"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ]
-  ]
+  ],
+  "tagFormat": "${version}"
 }
