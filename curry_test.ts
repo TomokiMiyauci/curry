@@ -1,4 +1,5 @@
-// Copyright 2021-present the Curry authors. All rights reserved. MIT license.
+// Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
+
 import { Pop, Shift, UnionFactorial } from "./curry.ts";
 import { curry } from "./curry.ts";
 import { assertEquals, assertEqualsTypes } from "./dev_deps.ts";

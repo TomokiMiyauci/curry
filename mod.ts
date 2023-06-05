@@ -1,2 +1,4 @@
-// Copyright 2021-present the Curry authors. All rights reserved. MIT license.
+// Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
+// This module is browser compatible.
+
 export { curry } from "./curry.ts";
