@@ -26,6 +26,30 @@ curriedFn("", 0)(false);
 curriedFn("", 0, false);
 ```
 
+## Partial application
+
+Creates a new "bound function".
+
+It has the following characteristics:
+
+- The `length` property is 0.
+- The `name` property is `partial`.
+
+### partial
+
+Partially applies function arguments.
+
+```ts
+import { partial } from "https://deno.land/x/curry@$VERSION/mod.ts";
+
+declare const fn: (a: string, b: number, c: boolean) => void;
+
+const ternary = partial(fn);
+const binary = partial(fn, "");
+const unary = partial(fn, "", 0);
+const nullary = partial(fn, "", 0, false);
+```
+
 ## API
 
 See [deno doc](https://deno.land/x/curry/mod.ts) for all APIs.
