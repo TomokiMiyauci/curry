@@ -46,54 +46,52 @@ It has the following characteristics:
 - The `length` property is not strict.
 - The `name` property is `bound`.
 
-### partial
+### papplyLeft
 
-[![curry:partial](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+partial+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+partial+%7D%5D#sharing)
+[![curry:papplyLeft](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+papplyLeft+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+papplyLeft+%7D%5D#sharing)
 
-Partially applies function arguments.
+Create a bound function with arguments fixed from the left.
 
 ```ts
-import { partial } from "https://deno.land/x/curry@$VERSION/mod.ts";
+import { papplyLeft } from "https://deno.land/x/curry@$VERSION/mod.ts";
 
 declare const fn: (a: string, b: number, c: boolean) => void;
 
-const ternary = partial(fn);
-const binary = partial(fn, "");
-const unary = partial(fn, "", 0);
-const nullary = partial(fn, "", 0, false);
+const ternary = papplyLeft(fn);
+const binary = papplyLeft(fn, "");
+const unary = papplyLeft(fn, "", 0);
+const nullary = papplyLeft(fn, "", 0, false);
 ```
 
-### partialRight
+### papplyRight
 
 [![curry:partialRight](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+partialRight+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+partialRight+%7D%5D#sharing)
 
-Create right partial applied function.
+Create a bound function with arguments fixed from the right
 
 ```ts
-import { partialRight } from "https://deno.land/x/curry@$VERSION/mod.ts";
+import { papplyRight } from "https://deno.land/x/curry@$VERSION/mod.ts";
 
 declare const fn: (a: string, b: number, c: boolean) => void;
 
-const binary = partialRight(fn, false);
-const unary = partialRight(fn, false, 0);
-const nullary = partialRight(fn, false, 0, "");
+const binary = papplyRight(fn, false);
+const unary = papplyRight(fn, false, 0);
+const nullary = papplyRight(fn, false, 0, "");
 ```
 
-### partialTail
+### papplyRest
 
-[![curry:partialTail](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+partialTail+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+partialTail+%7D%5D#sharing)
+[![curry:papplyRest](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+papplyRest+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+papplyRest+%7D%5D#sharing)
 
-Create tail partial applied function.
-
-Tail is any argument other than the first argument.
+Create a bound function with fixed arguments except the first one.
 
 ```ts
-import { partialTail } from "https://deno.land/x/curry@$VERSION/mod.ts";
+import { papplyRest } from "https://deno.land/x/curry@$VERSION/mod.ts";
 
 declare const fn: (a: string, b: number, c: boolean) => void;
 
-const binary = partialTail(fn, 0);
-const unary = partialTail(fn, 0, false);
+const binary = papplyRest(fn, 0);
+const unary = papplyRest(fn, 0, false);
 ```
 
 ## API

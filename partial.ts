@@ -1,21 +1,21 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 // This module is browser compatible.
 
-/** Partially applies function arguments.
+/** Create a bound function with arguments fixed from the left.
  *
  * @example
  * ```ts
- * import { partial } from "https://deno.land/x/curry@$VERSION/partial.ts";
+ * import { papplyLeft } from "https://deno.land/x/curry@$VERSION/partial.ts";
  *
  * declare const fn: (a: string, b: number, c: boolean) => void;
  *
- * const ternary = partial(fn);
- * const binary = partial(fn, "");
- * const unary = partial(fn, "", 0);
- * const nullary = partial(fn, "", 0, false);
+ * const ternary = papplyLeft(fn);
+ * const binary = papplyLeft(fn, "");
+ * const unary = papplyLeft(fn, "", 0);
+ * const nullary = papplyLeft(fn, "", 0, false);
  * ```
  */
-export function partial<
+export function papplyLeft<
   T extends readonly unknown[],
   U extends readonly unknown[],
   R,
@@ -28,42 +28,42 @@ export function partial<
   };
 }
 
-/** Create right partial applied function.
+/** Create a bound function with arguments fixed from the right
  *
  * @example
  * ```ts
- * import { partialRight } from "https://deno.land/x/curry@$VERSION/partial.ts";
+ * import { papplyRight } from "https://deno.land/x/curry@$VERSION/partial.ts";
  *
  * declare const fn: (a: string, b: number, c: boolean) => void;
  *
- * const binary = partialRight(fn, false);
- * const unary = partialRight(fn, false, 0);
- * const nullary = partialRight(fn, false, 0, "");
+ * const binary = papplyRight(fn, false);
+ * const unary = papplyRight(fn, false, 0);
+ * const nullary = papplyRight(fn, false, 0, "");
  * ```
  */
-export function partialRight<A0, A extends readonly unknown[], R>(
+export function papplyRight<A0, A extends readonly unknown[], R>(
   fn: (...args: readonly [...A, A0]) => R,
   arg0: A0,
 ): (...args: A) => R;
-export function partialRight<A0, A1, A extends readonly unknown[], R>(
+export function papplyRight<A0, A1, A extends readonly unknown[], R>(
   fn: (...args: readonly [...A, A1, A0]) => R,
   arg0: A0,
   arg1: A1,
 ): (...args: A) => R;
-export function partialRight<A0, A1, A2, A extends readonly unknown[], R>(
+export function papplyRight<A0, A1, A2, A extends readonly unknown[], R>(
   fn: (...args: readonly [...A, A2, A1, A0]) => R,
   arg0: A0,
   arg1: A1,
   arg2: A2,
 ): (...args: A) => R;
-export function partialRight<A0, A1, A2, A3, A extends readonly unknown[], R>(
+export function papplyRight<A0, A1, A2, A3, A extends readonly unknown[], R>(
   fn: (...args: readonly [...A, A3, A2, A1, A0]) => R,
   arg0: A0,
   arg1: A1,
   arg2: A2,
   arg3: A3,
 ): (...args: A) => R;
-export function partialRight<
+export function papplyRight<
   A0,
   A1,
   A2,
@@ -79,11 +79,11 @@ export function partialRight<
   arg3: A3,
   arg4: A4,
 ): (...args: A) => R;
-export function partialRight<AX, R>(
+export function papplyRight<AX, R>(
   fn: (...args: readonly AX[]) => R,
   ...args: AX[]
 ): (...args: readonly AX[]) => R;
-export function partialRight<AX, R>(
+export function papplyRight<AX, R>(
   fn: (...args: readonly AX[]) => R,
   ...args: AX[]
 ): (...args: readonly AX[]) => R {
@@ -93,21 +93,19 @@ export function partialRight<AX, R>(
   };
 }
 
-/** Create tail partial applied function.
- *
- * Tail is any argument other than the first argument.
+/** Create a bound function with fixed arguments except the first one.
  *
  * @example
  * ```ts
- * import { partialTail } from "https://deno.land/x/curry@$VERSION/mod.ts";
+ * import { papplyRest } from "https://deno.land/x/curry@$VERSION/mod.ts";
  *
  * declare const fn: (a: string, b: number, c: boolean) => void;
  *
- * const binary = partialTail(fn, 0);
- * const unary = partialTail(fn, 0, false);
+ * const binary = papplyRest(fn, 0);
+ * const unary = papplyRest(fn, 0, false);
  * ```
  */
-export function partialTail<
+export function papplyRest<
   H,
   T extends readonly unknown[],
   U extends readonly unknown[],

@@ -1,6 +1,6 @@
 // Copyright 2023-latest Tomoki Miyauchi. All rights reserved. MIT license.
 
-import { partial, partialRight, partialTail } from "./partial.ts";
+import { papplyLeft, papplyRest, papplyRight } from "./partial.ts";
 import {
   assertEquals,
   assertSpyCallArgs,
@@ -31,9 +31,9 @@ type Fn2Spy<T> = T extends (this: infer T, ...args: infer Args) => infer R
   ? Spy<T, Args, R>
   : unknown;
 
-describe("partial", () => {
+describe("papplyLeft", () => {
   it("should return function what name is bound", () => {
-    assertEquals(partial(() => "").name, "bound");
+    assertEquals(papplyLeft(() => "").name, "bound");
   });
   describe("arity 1", function () {
     interface Context {
@@ -44,7 +44,7 @@ describe("partial", () => {
     });
     it<Context>("should pass 0 argument", function () {
       const arg = "";
-      const fn = partial(this.fn);
+      const fn = papplyLeft(this.fn);
 
       assertEquals(fn(arg), arg);
       assertSpyCallArgs(this.fn, 0, [arg]);
@@ -52,7 +52,7 @@ describe("partial", () => {
 
     it<Context>("should pass 1 argument", function () {
       const arg = "";
-      const fn = partial(this.fn, arg);
+      const fn = papplyLeft(this.fn, arg);
 
       assertEquals(fn(), arg);
       assertSpyCallArgs(this.fn, 0, [arg]);
@@ -72,21 +72,21 @@ describe("partial", () => {
     });
 
     it<Context>("should pass 0 argument", function () {
-      const fn = partial(this.fn);
+      const fn = papplyLeft(this.fn);
 
       assertEquals(fn(arg, arg2), arg + arg2);
       assertSpyCallArgs(this.fn, 0, [arg, arg2]);
     });
 
     it<Context>("should pass 1 argument", function () {
-      const fn = partial(this.fn, arg);
+      const fn = papplyLeft(this.fn, arg);
 
       assertEquals(fn(arg2), arg + arg2);
       assertSpyCallArgs(this.fn, 0, [arg, arg2]);
     });
 
     it<Context>("should pass 2 argument", function () {
-      const fn = partial(this.fn, arg, arg2);
+      const fn = papplyLeft(this.fn, arg, arg2);
 
       assertEquals(fn(), arg + arg2);
       assertSpyCallArgs(this.fn, 0, [arg, arg2]);
@@ -109,28 +109,28 @@ describe("partial", () => {
     });
 
     it<Context>("should pass 0 argument", function () {
-      const fn = partial(this.fn);
+      const fn = papplyLeft(this.fn);
 
       assertEquals(fn(arg, arg2, arg3), arg + arg2 + arg3);
       assertSpyCallArgs(this.fn, 0, [arg, arg2, arg3]);
     });
 
     it<Context>("should pass 1 argument", function () {
-      const fn = partial(this.fn, arg);
+      const fn = papplyLeft(this.fn, arg);
 
       assertEquals(fn(arg2, arg3), arg + arg2 + arg3);
       assertSpyCallArgs(this.fn, 0, [arg, arg2, arg3]);
     });
 
     it<Context>("should pass 2 argument", function () {
-      const fn = partial(this.fn, arg, arg2);
+      const fn = papplyLeft(this.fn, arg, arg2);
 
       assertEquals(fn(arg3), arg + arg2 + arg3);
       assertSpyCallArgs(this.fn, 0, [arg, arg2, arg3]);
     });
 
     it<Context>("should pass 3 argument", function () {
-      const fn = partial(this.fn, arg, arg2, arg3);
+      const fn = papplyLeft(this.fn, arg, arg2, arg3);
 
       assertEquals(fn(), arg + arg2 + arg3);
       assertSpyCallArgs(this.fn, 0, [arg, arg2, arg3]);
@@ -138,9 +138,9 @@ describe("partial", () => {
   });
 });
 
-describe("partialRight", () => {
+describe("papplyRight", () => {
   it("should return function what name is bound", () => {
-    assertEquals(partialRight(() => "").name, "bound");
+    assertEquals(papplyRight(() => "").name, "bound");
   });
 
   describe("nullary", () => {
@@ -152,7 +152,7 @@ describe("partialRight", () => {
     });
 
     it<Context>("should pass 0 argument", function () {
-      const fn = partialRight(this.fn);
+      const fn = papplyRight(this.fn);
 
       assertEquals(fn(), undefined);
     });
@@ -169,14 +169,14 @@ describe("partialRight", () => {
     const arg = "";
 
     it<Context>("should pass 0 argument", function () {
-      const fn = partialRight(this.fn);
+      const fn = papplyRight(this.fn);
 
       assertEquals(fn(arg), arg);
       assertSpyCallArgs(this.fn, 0, [arg]);
     });
 
     it<Context>("should pass 1 argument", function () {
-      const fn = partialRight(this.fn, arg);
+      const fn = papplyRight(this.fn, arg);
 
       assertEquals(fn(), arg);
       assertSpyCallArgs(this.fn, 0, [arg]);
@@ -195,14 +195,14 @@ describe("partialRight", () => {
     const arg2 = 0;
 
     it<Context>("should pass 1 argument", function () {
-      const fn = partialRight(this.fn, arg2);
+      const fn = papplyRight(this.fn, arg2);
 
       assertEquals(fn(arg), arg + arg2);
       assertSpyCallArgs(this.fn, 0, [arg, arg2]);
     });
 
     it<Context>("should pass 2 argument", function () {
-      const fn = partialRight(this.fn, arg2, arg);
+      const fn = papplyRight(this.fn, arg2, arg);
 
       assertEquals(fn(), arg + arg2);
       assertSpyCallArgs(this.fn, 0, [arg, arg2]);
@@ -224,21 +224,21 @@ describe("partialRight", () => {
     const arg3 = false;
 
     it<Context>("should pass 1 argument", function () {
-      const fn = partialRight(this.fn, arg3);
+      const fn = papplyRight(this.fn, arg3);
 
       assertEquals(fn(arg, arg2), arg + arg2 + arg3);
       assertSpyCallArgs(this.fn, 0, [arg, arg2, arg3]);
     });
 
     it<Context>("should pass 2 argument", function () {
-      const fn = partialRight(this.fn, arg3, arg2);
+      const fn = papplyRight(this.fn, arg3, arg2);
 
       assertEquals(fn(arg), arg + arg2 + arg3);
       assertSpyCallArgs(this.fn, 0, [arg, arg2, arg3]);
     });
 
     it<Context>("should pass 3 argument", function () {
-      const fn = partialRight(this.fn, arg3, arg2, arg);
+      const fn = papplyRight(this.fn, arg3, arg2, arg);
 
       assertEquals(fn(), arg + arg2 + arg3);
       assertSpyCallArgs(this.fn, 0, [arg, arg2, arg3]);
@@ -246,9 +246,9 @@ describe("partialRight", () => {
   });
 });
 
-describe("partialTail", () => {
+describe("papplyRest", () => {
   it("should return function what name is bound", () => {
-    assertEquals(partialTail(() => "").name, "bound");
+    assertEquals(papplyRest(() => "").name, "bound");
   });
 
   describe("unary", () => {
@@ -262,7 +262,7 @@ describe("partialTail", () => {
     const arg = "";
 
     it<Context>("should pass 0 argument", function () {
-      const fn = partialTail(this.fn);
+      const fn = papplyRest(this.fn);
 
       assertEquals(fn(arg), arg);
       assertSpyCallArgs(this.fn, 0, [arg]);
@@ -281,14 +281,14 @@ describe("partialTail", () => {
     const arg2 = 0;
 
     it<Context>("should pass 0 argument", function () {
-      const fn = partialTail(this.fn);
+      const fn = papplyRest(this.fn);
 
       assertEquals(fn(arg, arg2), arg + arg2);
       assertSpyCallArgs(this.fn, 0, [arg, arg2]);
     });
 
     it<Context>("should pass 1 argument", function () {
-      const fn = partialTail(this.fn, arg2);
+      const fn = papplyRest(this.fn, arg2);
 
       assertEquals(fn(arg), arg + arg2);
       assertSpyCallArgs(this.fn, 0, [arg, arg2]);
@@ -310,21 +310,21 @@ describe("partialTail", () => {
     const arg3 = false;
 
     it<Context>("should pass 0 argument", function () {
-      const fn = partialTail(this.fn);
+      const fn = papplyRest(this.fn);
 
       assertEquals(fn(arg, arg2, arg3), arg + arg2 + arg3);
       assertSpyCallArgs(this.fn, 0, [arg, arg2, arg3]);
     });
 
     it<Context>("should pass 1 argument", function () {
-      const fn = partialTail(this.fn, arg2);
+      const fn = papplyRest(this.fn, arg2);
 
       assertEquals(fn(arg, arg3), arg + arg2 + arg3);
       assertSpyCallArgs(this.fn, 0, [arg, arg2, arg3]);
     });
 
     it<Context>("should pass 2 argument", function () {
-      const fn = partialTail(this.fn, arg2, arg3);
+      const fn = papplyRest(this.fn, arg2, arg3);
 
       assertEquals(fn(arg), arg + arg2 + arg3);
       assertSpyCallArgs(this.fn, 0, [arg, arg2, arg3]);
