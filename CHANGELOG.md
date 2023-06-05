@@ -1,3 +1,12 @@
+# [1.1.0-beta.1](https://github.com/TomokiMiyauci/curry/compare/v1.0.0...1.1.0-beta.1) (2023-06-05)
+
+
+### Features
+
+* **partial:** add partial function ([3379335](https://github.com/TomokiMiyauci/curry/commit/3379335ca41eeacddb29218edf92b8c5e34c39fa))
+* **partial:** add partial right function ([46ed432](https://github.com/TomokiMiyauci/curry/commit/46ed43287a34b6ef7165c7db95cec08b74ac1f8a))
+* **partial:** add partial tail function ([96b1d7b](https://github.com/TomokiMiyauci/curry/commit/96b1d7ba8390328100a0f46465fb53e5d847c3af))
+
 # v1.0.0 (2021-06-15)
 
 ## ✨ New Features
