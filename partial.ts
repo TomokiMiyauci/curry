@@ -90,7 +90,37 @@ export function partialRight<AX, R>(
   ...args: AX[]
 ): (...args: readonly AX[]) => R {
   args = args.reverse();
-  return function (...rest): R {
+  return function partial(...rest): R {
     return fn.apply(null, rest.concat(args));
   };
+}
+
+/** Create tail partial applied function.
+ *
+ * Tail is any argument other than the first argument.
+ *
+ * @example
+ * ```ts
+ * import { partialTail } from "https://deno.land/x/curry@$VERSION/mod.ts";
+ *
+ * declare const fn: (a: string, b: number, c: boolean) => void;
+ *
+ * const binary = partialTail(fn, 0);
+ * const unary = partialTail(fn, 0, false);
+ * ```
+ */
+export function partialTail<
+  H,
+  T extends readonly unknown[],
+  U extends readonly unknown[],
+  R,
+>(
+  fn: (...args: readonly [H, ...T, ...U]) => R,
+  ...tail: T
+): (head: H, ...rest: U) => R {
+  function partial(head: H, ...rest: U): R {
+    return fn(head, ...tail, ...rest);
+  }
+
+  return partial;
 }

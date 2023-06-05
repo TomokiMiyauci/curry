@@ -64,6 +64,21 @@ const unary = partialRight(fn, false, 0);
 const nullary = partialRight(fn, false, 0, "");
 ```
 
+### partialTail
+
+Create tail partial applied function.
+
+Tail is any argument other than the first argument.
+
+```ts
+import { partialTail } from "https://deno.land/x/curry@$VERSION/mod.ts";
+
+declare const fn: (a: string, b: number, c: boolean) => void;
+
+const binary = partialTail(fn, 0);
+const unary = partialTail(fn, 0, false);
+```
+
 ## API
 
 See [deno doc](https://deno.land/x/curry/mod.ts) for all APIs.
