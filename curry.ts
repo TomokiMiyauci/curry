@@ -20,10 +20,6 @@ type Union2Intersection<U> = (
 /**
  * Pop types
  * @typeParams - T Any array
- * @example
- * ```ts
- * Pop<[1, 2, 3]> = [1, 2].
- * ```
  *
  * @internal
  */
@@ -34,11 +30,6 @@ type Pop<T extends AnyArray> = T extends [...infer Head, unknown] ? Head
 /**
  * Shift types
  * @typeParams S - Any array
- * @example
- * ```ts
- * Shift<[1], [1, 2, 3]> = [2, 3].
- * Shift<[1, 2], [1, 2, 3]> = [3].
- * ```
  *
  * @internal
  */
@@ -49,24 +40,12 @@ type Shift<S extends AnyArray, T extends AnyArray> = T extends [
   : never;
 
 /**
- * @example
- * ```ts
- * UnionFactorial<[1, 2, 3]> = [1] | [1, 2] | [1, 2, 3]
- * ```
- *
  * @internal
  */
 type UnionFactorial<T extends AnyArray> = T extends readonly [] ? never
   : T | UnionFactorial<Pop<T>>;
 
 /**
- * @example
- * ```ts
- * OverloadsByArgs<[1] | [1, 2], [1, 2, 3], 7> =
- *  | CurriedWithFixArgs<[1], [2, 3], 7>
- *  | CurriedWithFixArgs<[1, 2], [3], 7>.
- * ```
- *
  * @internal
  */
 type OverloadsByArgs<
@@ -97,7 +76,7 @@ type Curried<Args extends AnyArray, ReturnValue> = Args extends [] ? ReturnValue
   >;
 
 /**
- * Creates a function that accepts arguments of `fn` and either invokes `fn` returning its result, if at least arity number of arguments have been provided, or returns a function that accepts the remaining `fn` arguments, and so on.
+ * Return curried function.
  *
  * @param fn - The function to curry
  * @returns The new curried function
@@ -107,14 +86,13 @@ type Curried<Args extends AnyArray, ReturnValue> = Args extends [] ? ReturnValue
  *
  * @example
  * ```ts
+ * import { curry } from "https://deno.land/x/curry@$VERSION/mod.ts";
  * const replace = (from: string, to: string, val: string) => val.replace(from, to)
  * const curriedReplace = curry(replace)
- * const curriedReplace('hello', 'hi', 'hello world') // 'hi world'
- * const curriedReplace('hello')('hi', 'hello world') // 'hi world'
- * const curriedReplace('hello')('hi')('hello world') // 'hi world'
+ * curriedReplace('hello', 'hi', 'hello world') // 'hi world'
+ * curriedReplace('hello')('hi', 'hello world') // 'hi world'
+ * curriedReplace('hello')('hi')('hello world') // 'hi world'
  * ```
- *
- * @beta
  */
 const curry = <T extends unknown[], R>(
   fn: (...args: T) => R,
