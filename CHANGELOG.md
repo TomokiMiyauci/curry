@@ -1,3 +1,10 @@
+# [1.1.0-beta.2](https://github.com/TomokiMiyauci/curry/compare/1.1.0-beta.1...1.1.0-beta.2) (2023-06-05)
+
+
+### Bug Fixes
+
+* **partial:** rename return function name ([2ab4f3b](https://github.com/TomokiMiyauci/curry/commit/2ab4f3b806a117b8ec9ae4ea709d81196b256575))
+
 # [1.1.0-beta.1](https://github.com/TomokiMiyauci/curry/compare/v1.0.0...1.1.0-beta.1) (2023-06-05)
 
 
