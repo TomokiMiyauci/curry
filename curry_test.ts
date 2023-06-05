@@ -2,7 +2,7 @@
 
 import { Pop, Shift, UnionFactorial } from "./curry.ts";
 import { curry } from "./curry.ts";
-import { assertEquals, assertEqualsTypes } from "./dev_deps.ts";
+import { assertEquals, assertEqualsTypes } from "./_dev_deps.ts";
 
 const arity0 = () => true;
 const arity1 = (a: unknown) => a;
