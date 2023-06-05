@@ -2,4 +2,4 @@
 // This module is browser compatible.
 
 export { curry } from "./curry.ts";
-export { partial } from "./partial.ts";
+export { partial, partialRight } from "./partial.ts";

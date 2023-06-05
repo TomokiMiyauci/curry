@@ -29,3 +29,68 @@ export function partial<
 
   return partial;
 }
+
+/** Create right partial applied function.
+ *
+ * @example
+ * ```ts
+ * import { partialRight } from "https://deno.land/x/curry@$VERSION/partial.ts";
+ *
+ * declare const fn: (a: string, b: number, c: boolean) => void;
+ *
+ * const binary = partialRight(fn, false);
+ * const unary = partialRight(fn, false, 0);
+ * const nullary = partialRight(fn, false, 0, "");
+ * ```
+ */
+export function partialRight<A0, A extends readonly unknown[], R>(
+  fn: (...args: readonly [...A, A0]) => R,
+  arg0: A0,
+): (...args: A) => R;
+export function partialRight<A0, A1, A extends readonly unknown[], R>(
+  fn: (...args: readonly [...A, A1, A0]) => R,
+  arg0: A0,
+  arg1: A1,
+): (...args: A) => R;
+export function partialRight<A0, A1, A2, A extends readonly unknown[], R>(
+  fn: (...args: readonly [...A, A2, A1, A0]) => R,
+  arg0: A0,
+  arg1: A1,
+  arg2: A2,
+): (...args: A) => R;
+export function partialRight<A0, A1, A2, A3, A extends readonly unknown[], R>(
+  fn: (...args: readonly [...A, A3, A2, A1, A0]) => R,
+  arg0: A0,
+  arg1: A1,
+  arg2: A2,
+  arg3: A3,
+): (...args: A) => R;
+export function partialRight<
+  A0,
+  A1,
+  A2,
+  A3,
+  A4,
+  A extends readonly unknown[],
+  R,
+>(
+  fn: (...args: readonly [...A, A3, A2, A1, A0]) => R,
+  arg0: A0,
+  arg1: A1,
+  arg2: A2,
+  arg3: A3,
+  arg4: A4,
+): (...args: A) => R;
+export function partialRight<AX, R>(
+  fn: (...args: readonly AX[]) => R,
+  ...args: AX[]
+): (...args: readonly AX[]) => R;
+export function partialRight<AX, R>(
+  fn: (...args: readonly AX[]) => R,
+  ...args: AX[]
+): (...args: readonly AX[]) => R {
+  args = args.reverse();
+  return function (...rest): R {
+    return fn.apply(null, rest.concat(args));
+  };
+}

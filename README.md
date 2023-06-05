@@ -50,6 +50,20 @@ const unary = partial(fn, "", 0);
 const nullary = partial(fn, "", 0, false);
 ```
 
+### partialRight
+
+Create right partial applied function.
+
+```ts
+import { partialRight } from "https://deno.land/x/curry@$VERSION/mod.ts";
+
+declare const fn: (a: string, b: number, c: boolean) => void;
+
+const binary = partialRight(fn, false);
+const unary = partialRight(fn, false, 0);
+const nullary = partialRight(fn, false, 0, "");
+```
+
 ## API
 
 See [deno doc](https://deno.land/x/curry/mod.ts) for all APIs.
