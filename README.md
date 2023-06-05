@@ -21,6 +21,8 @@ Provides features related to currying.
 
 ### curry
 
+[![curry:curry](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+curry+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+curry+%7D%5D#sharing)
+
 `curry` returns curried function.
 
 ```ts
@@ -36,14 +38,17 @@ curriedFn("", 0, false);
 
 ## Partial application
 
-Creates a new "bound function".
+Partial application refers to the process of fixing a number of arguments to a
+function, producing another function of smaller arity.
 
 It has the following characteristics:
 
 - The `length` property is not strict.
-- The `name` property is `partial`.
+- The `name` property is `bound`.
 
 ### partial
+
+[![curry:partial](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+partial+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+partial+%7D%5D#sharing)
 
 Partially applies function arguments.
 
@@ -60,6 +65,8 @@ const nullary = partial(fn, "", 0, false);
 
 ### partialRight
 
+[![curry:partialRight](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+partialRight+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+partialRight+%7D%5D#sharing)
+
 Create right partial applied function.
 
 ```ts
@@ -73,6 +80,8 @@ const nullary = partialRight(fn, false, 0, "");
 ```
 
 ### partialTail
+
+[![curry:partialTail](https://deno.bundlejs.com/?q=https://deno.land/x/curry/mod.ts&treeshake=[{+partialTail+}]&badge=)](https://bundlejs.com/?q=https%3A%2F%2Fdeno.land%2Fx%2Fcurry%2Fmod.ts&treeshake=%5B%7B+partialTail+%7D%5D#sharing)
 
 Create tail partial applied function.
 
