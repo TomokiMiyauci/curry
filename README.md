@@ -32,7 +32,7 @@ Creates a new "bound function".
 
 It has the following characteristics:
 
-- The `length` property is 0.
+- The `length` property is not strict.
 - The `name` property is `partial`.
 
 ### partial
