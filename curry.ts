@@ -51,7 +51,7 @@ type Shift<S extends AnyArray, T extends AnyArray> = T extends [
 /**
  * @example
  * ```ts
- * UnionFactorial<[1, 2, 3]> = [1] | [1, 2] | [1, 2, 3].
+ * UnionFactorial<[1, 2, 3]> = [1] | [1, 2] | [1, 2, 3]
  * ```
  *
  * @internal
@@ -126,4 +126,4 @@ const curry = <T extends unknown[], R>(
 };
 
 export { curry };
-export type { Pop, Shift, UnionFactorial };
+export type { Pop, Shift, Union2Intersection, UnionFactorial };
