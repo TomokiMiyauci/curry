@@ -23,11 +23,9 @@ export function partial<
   fn: (...args: readonly [...T, ...U]) => R,
   ...args: T
 ): (...rest: U) => R {
-  function partial(...rest: U): R {
+  return function bound(...rest: U): R {
     return fn(...args, ...rest);
-  }
-
-  return partial;
+  };
 }
 
 /** Create right partial applied function.
@@ -90,7 +88,7 @@ export function partialRight<AX, R>(
   ...args: AX[]
 ): (...args: readonly AX[]) => R {
   args = args.reverse();
-  return function partial(...rest): R {
+  return function bound(...rest): R {
     return fn.apply(null, rest.concat(args));
   };
 }
@@ -118,9 +116,7 @@ export function partialTail<
   fn: (...args: readonly [H, ...T, ...U]) => R,
   ...tail: T
 ): (head: H, ...rest: U) => R {
-  function partial(head: H, ...rest: U): R {
+  return function bound(head: H, ...rest: U): R {
     return fn(head, ...tail, ...rest);
-  }
-
-  return partial;
+  };
 }

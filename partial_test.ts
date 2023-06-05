@@ -32,6 +32,9 @@ type Fn2Spy<T> = T extends (this: infer T, ...args: infer Args) => infer R
   : unknown;
 
 describe("partial", () => {
+  it("should return function what name is bound", () => {
+    assertEquals(partial(() => "").name, "bound");
+  });
   describe("arity 1", function () {
     interface Context {
       fn: Fn2Spy<Arity1>;
@@ -136,6 +139,10 @@ describe("partial", () => {
 });
 
 describe("partialRight", () => {
+  it("should return function what name is bound", () => {
+    assertEquals(partialRight(() => "").name, "bound");
+  });
+
   describe("nullary", () => {
     interface Context {
       fn: Fn2Spy<Nullabry>;
@@ -240,6 +247,10 @@ describe("partialRight", () => {
 });
 
 describe("partialTail", () => {
+  it("should return function what name is bound", () => {
+    assertEquals(partialTail(() => "").name, "bound");
+  });
+
   describe("unary", () => {
     interface Context {
       fn: Fn2Spy<Arity1>;
